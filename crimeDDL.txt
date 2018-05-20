@@ -1,0 +1,189 @@
+CREATE TABLE `cities` (
+    `ID` int(11) NOT NULL AUTO_INCREMENT, 
+    `name` varchar(255) NOT NULL,
+    `state` varchar(10) NOT NULL,
+    `dataset_id` varchar(255) NOT NULL,
+    `url` varchar(255) NOT NULL,
+    PRIMARY KEY (`ID`),
+    UNIQUE KEY (`name`, `dataset_id`,`url`)
+)
+AUTO_INCREMENT=1 ;
+
+
+CREATE TABLE `geodata` (
+    `incident_id` int(11) NOT NULL AUTO_INCREMENT, 
+    `city_id` int(11) NOT NULL,
+    `crime_description` varchar(255) NOT NULL,
+    `crime_code` varchar(255) DEFAULT NULL,
+    `datetime_occured` DATETIME NOT NULL,
+    `location_description` varchar(255) DEFAULT NULL,
+    `latitude` decimal(14,12) NOT NULL,
+    `longitude` decimal(15,12) NOT NULL,
+    PRIMARY KEY (`incident_id`),
+    CONSTRAINT `city_ibfk_2` FOREIGN KEY (`city_id`) REFERENCES `crime`.`cities` (`ID`) ON UPDATE CASCADE
+)
+AUTO_INCREMENT=1 ;
+
+
+CREATE TABLE `city_mappings` (
+    `city_id` int(11) NOT NULL,
+    `crime_column` varchar(255) NOT NULL,
+    `location_column` varchar(255) NOT NULL,
+    `longLat_column` varchar(255) NOT NULL,
+    `date_column` varchar(255) DEFAULT NULL,
+    `time_column` varchar(255) DEFAULT NULL,
+    PRIMARY KEY (`city`),
+    CONSTRAINT `city_ibfk_1` FOREIGN KEY (`city_id`) REFERENCES `crime`.`cities` (`ID`) ON UPDATE CASCADE
+)
+
+CREATE TABLE `Fort_Worth` (
+    `incident_id` int(11) NOT NULL AUTO_INCREMENT, 
+    `city_id` int(11) NOT NULL,
+    `crime_description` varchar(255) NOT NULL,
+    `crime_code` varchar(255) DEFAULT NULL,
+    `datetime_occured` DATETIME NOT NULL,
+    `location_description` varchar(255) DEFAULT NULL,
+    `latitude` decimal(14,12) NOT NULL,
+    `longitude` decimal(15,12) NOT NULL,
+    PRIMARY KEY (`incident_id`),
+    CONSTRAINT `city_ibfk_2` FOREIGN KEY (`city_id`) REFERENCES `crime`.`cities` (`ID`) ON UPDATE CASCADE
+)
+AUTO_INCREMENT=1 ;
+
+
+CREATE TABLE `Chicago` (
+    `incident_id` int(11) NOT NULL AUTO_INCREMENT, 
+    `city_id` int(11) NOT NULL,
+    `crime_description` varchar(255) NOT NULL,
+    `crime_code` varchar(255) DEFAULT NULL,
+    `datetime_occured` DATETIME NOT NULL,
+    `location_description` varchar(255) DEFAULT NULL,
+    `latitude` decimal(14,12) NOT NULL,
+    `longitude` decimal(15,12) NOT NULL,
+    PRIMARY KEY (`incident_id`),
+    CONSTRAINT `city_ibfk_3` FOREIGN KEY (`city_id`) REFERENCES `crime`.`cities` (`ID`) ON UPDATE CASCADE
+)
+AUTO_INCREMENT=1 ;
+
+
+CREATE TABLE `New_York_City` (
+    `incident_id` int(11) NOT NULL AUTO_INCREMENT, 
+    `city_id` int(11) NOT NULL,
+    `crime_description` varchar(255) NOT NULL,
+    `crime_code` varchar(255) DEFAULT NULL,
+    `datetime_occured` DATETIME NOT NULL,
+    `location_description` varchar(255) DEFAULT NULL,
+    `latitude` decimal(14,12) NOT NULL,
+    `longitude` decimal(15,12) NOT NULL,
+    PRIMARY KEY (`incident_id`),
+    CONSTRAINT `city_ibfk_4` FOREIGN KEY (`city_id`) REFERENCES `crime`.`cities` (`ID`) ON UPDATE CASCADE
+)
+AUTO_INCREMENT=1 ;
+
+
+urls = {'Fort_Worth' : 'data.fortworthtexas.gov', 'Chicago' : 'data.cityofchicago.org', 'New_York_City' : 'data.cityofnewyork.us', 'Los_Angeles' : 'data.lacity.org'}
+datasets = {'Fort_Worth' : 'fauf-2yhn', 'Chicago' : '6zsd-86xi', "Los_Angeles" : "7fvc-faax", "New_York_City" : "9s4h-37hy"}
+crimeCols = {'Fort_Worth' : 'nature_of_call', 'Chicago' : 'primary_type', "Los_Angeles" : "crm_cd_desc", "New_York_City" : "ofns_desc"}
+locationCols = {'Fort_Worth' : 'locationtypedescription', 'Chicago' : 'location_description', "Los_Angeles" : "premis_desc", "New_York_City" : "prem_typ_desc"}
+longLatCols = {'Fort_Worth' : 'location_1', 'Chicago' : 'location', "Los_Angeles" : "location_1", "New_York_City" : "lat_lon"}
+dateCols = {'Fort_Worth' : 'from_date', 'Chicago' : 'date', "Los_Angeles" : "date_occ", "New_York_City" : "cmplnt_fr_dt"}
+timeCols = {'Fort_Worth' : '', 'Chicago' : '', "Los_Angeles" : "time_occ", "New_York_City" : "cmplnt_fr_tm"}
+
+
+
+insert into cities (name,dataset_id,crime_column,location_column,longLat_column, url) values ('Chicago','6zsd-86xi','primary_type','location_description','location','data.cityofchicago.org')
+
+insert into cities (name,dataset_id,crime_column,location_column,longLat_column, url) values ('New_York_City','7fvc-faax','ofns_desc','prem_typ_desc','lat_lon','data.cityofnewyork.us')
+
+insert into cities (name,dataset_id,crime_column,location_column,longLat_column, date_column, time_column, url) values ('Chicago','6zsd-86xi','primary_type','location_description','location','date',NULL,'data.cityofchicago.org')
+
+
+
+for worth:
+
+
+state
+city
+attempt_complete
+offense_desc
+reported_date
+locationtypedescription
+division
+beat
+block_address
+councildistrict
+case_no
+from_date
+location_1
+nature_of_call
+offense
+case_no_offense
+location_type
+
+
+
+chicago
+
+description
+district
+beat
+year
+domestic
+iucr
+arrest
+location_description
+case_number
+date
+updated_on
+fbi_code
+id
+block
+primary_type
+
+
+los angeles
+
+date_rptd
+status
+area_id
+location_1
+crm_cd
+vict_age
+vict_sex
+crm_cd_desc
+area_name
+premis_cd
+status_desc
+mocodes
+premis_desc
+date_occ
+crm_cd_1
+location
+rpt_dist_no
+dr_no
+time_occ
+vict_descent
+
+
+
+nyc
+
+cmplnt_to_dt
+rpt_dt
+pd_desc
+prem_typ_desc
+cmplnt_to_tm
+juris_desc
+cmplnt_num
+law_cat_cd
+cmplnt_fr_tm
+addr_pct_cd
+ky_cd
+crm_atpt_cptd_cd
+ofns_desc
+cmplnt_fr_dt
+loc_of_occur_desc
+pd_cd
+boro_nm
+
+
