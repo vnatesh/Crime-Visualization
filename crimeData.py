@@ -82,24 +82,6 @@ def insert(connection, city):
 	client.close()
 
 
-# def plotCrimes(city, crime_code, start, end):
-# 	cursor = connection.cursor()
-# 	query = "SELECT g.latitude, g.longitude FROM geodata g \
-# 			INNER JOIN cities c ON g.city_id = c.ID \
-# 			WHERE c.name = '%s' \
-# 			AND g.crime_code  = '%s' \
-# 			AND datetime_occured > %s AND datetime_occured < %s" % (city, crime_code, start, end)
-# 	cursor.execute(query)
-# 	data = cursor.fetchall()
-# 	lats = [float(i['latitude']) for i in data]
-# 	lons = [float(i['longitude']) for i in data]
-# 	gmap = gmplot.GoogleMapPlotter.from_geocode(city)
-# 	gmap.heatmap(lats, lons)
-# 	# gmap.scatter(lats, lons, '#3B0B39', size=40, marker=False)
-# 	file = "%s_%s_%s_to_%s.html" % (city,crime_code,start,end)
-# 	gmap.draw(file)
-# 	webbrowser.open('file://' + os.path.realpath(file))
-
 
 def plotCrimes(city, crime_code, start, end):
 	cursor = connection.cursor()
